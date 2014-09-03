@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.nmi.uk.librarycl;
 
 import java.io.Console;
@@ -24,29 +23,31 @@ import java.io.IOException;
 /**
  *
  * @author Darren
+ * @version %I%, %G%
  */
 public class LibAppRun {
-    
-    
-    
-    public static void main(String[] args){
-        
+
+    public static void main(String[] args) {
+
         System.out.println("Loading app..");
         String option = null;
-        
+
+        XmlParser newxp = new XmlParser("test");
+        newxp.parseXml();
+        JsonParser newjp = new JsonParser("test");
+        newjp.parseJson();
+
         MainMenu.Run();
         // Load Files
         // call the loader method fo the parser classes in a seperate UI
-        
+
         Console userInput = System.console();
-        
-        while("Q".equals(option)){
-            
+
+        while ("Q".equals(option)) {
+
         }
         // Main Menu Loop
-        
-        
-        
+
     }
-    
+
 }

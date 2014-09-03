@@ -1,9 +1,9 @@
 package com.nmi.uk.librarycl;
 
 //import com.sun.xml.internal.ws.developer.ValidationErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,8 +12,8 @@ import javax.xml.bind.util.JAXBSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.File;
-import java.util.ArrayList;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Created by Darren on 25/08/2014.
@@ -40,8 +40,10 @@ public class XmlParser {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
             try {
-                File XMLfile = new File("C:\\Users\\Darren\\Documents\\projects\\DB_Test\\resources\\bethesda-library.xml");
-                Library bangor = (Library) jaxbUnmarshaller.unmarshal(XMLfile);
+                URL url = getClass().getResource("bethesda-library.xml");
+                System.out.println("path: " + url);
+                File xmlFile = new File(url.getPath());
+                Library bangor = (Library) jaxbUnmarshaller.unmarshal(xmlFile);
                 System.out.println("Library name:" + bangor.getName());
                 ArrayList<Book> listOfBooks = bangor.getListOfBooks();
 

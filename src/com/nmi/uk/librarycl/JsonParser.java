@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.nmi.uk.librarycl;
 
 import java.io.FileNotFoundException;
@@ -25,6 +24,7 @@ import java.util.Iterator;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
@@ -33,20 +33,19 @@ import org.json.simple.parser.ParseException;
  *
  * @author Darren
  */
-
-public class JSONToJPA {
+public class JsonParser {
 
     private final String filename;
     private JSONArray bookList;
 
-    public JSONToJPA(String filename) {
+    public JsonParser(String filename) {
         this.filename = filename;
     }
 
     public JSONArray parseJson() {
         try {
             JSONParser parser = new JSONParser();
-            JSONObject jsonObj = (JSONObject) parser.parse(new FileReader(filename));
+            JSONObject jsonObj = (JSONObject) parser.parse(new FileReader("./src/resources/bangor-library.json"));
 
             String name = (String) jsonObj.get("name");
             JSONArray bookList = (JSONArray) jsonObj.get("books");
@@ -58,15 +57,14 @@ public class JSONToJPA {
                 System.out.println("title " + innerObj.get("name")
                         + " author " + innerObj.get("author") + " category " + innerObj.get("category"));
             }
-
             this.bookList = bookList;
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(JSONToJPA.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(JSONToJPA.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(JSONToJPA.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonParser.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return bookList;

@@ -14,34 +14,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.nmi.uk.librarycl;
 
 import java.io.Serializable;
 
 /**
- * @class LibraryRecord
+ * LibraryRecord is as Simple Data object to store details on one book.
+ *
  * @author Darren
- * Simple Data object - store details on one book.
+ *
  */
-public class LibraryRecord implements Serializable{
-    
+public class LibraryRecord implements Serializable {
+
     static String lib_name;
     static String book_name;
     static String auth_name;
     static String cat_name;
-    
-    static enum attributes {
-        lib_name, book_name, auth_name, cat_name
-    };
 
     public LibraryRecord() {
+
     }
 
     public String getLib_name() {
         return lib_name;
     }
 
+    /**
+     *
+     * @param lib_name
+     */
     public void setLib_name(String lib_name) {
         LibraryRecord.lib_name = lib_name;
     }
@@ -50,6 +51,10 @@ public class LibraryRecord implements Serializable{
         return book_name;
     }
 
+    /**
+     *
+     * @param book_name
+     */
     public void setBook_name(String book_name) {
         LibraryRecord.book_name = book_name;
     }
@@ -58,6 +63,10 @@ public class LibraryRecord implements Serializable{
         return auth_name;
     }
 
+    /**
+     *
+     * @param auth_name
+     */
     public void setAuth_name(String auth_name) {
         LibraryRecord.auth_name = auth_name;
     }
@@ -66,7 +75,11 @@ public class LibraryRecord implements Serializable{
         return cat_name;
     }
 
+    /**
+     *
+     * @param cat_name
+     */
     public void setCat_name(String cat_name) {
         LibraryRecord.cat_name = cat_name;
-    } 
+    }
 }

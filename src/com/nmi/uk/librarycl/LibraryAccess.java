@@ -21,19 +21,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Class to store the book objects, could also persist to a database.
  *
  * @author Darren
+ * @version %I%, %G%
  */
 public class LibraryAccess implements Serializable {
 
-    ArrayList<LibraryRecord> bookShelves;
+    static ArrayList<LibraryRecord> bookShelves = new ArrayList<>();
 
     public LibraryAccess() {
-        bookShelves = new ArrayList<LibraryRecord>();
+
     }
 
-    protected void addRecord(LibraryRecord rec) {
+    /**
+     *
+     * @param rec
+     */
+    protected static void addRecord(LibraryRecord rec) {
         bookShelves.add(rec);
     }
 
@@ -55,8 +59,7 @@ public class LibraryAccess implements Serializable {
                 System.out.println("Element name: " + element.getBook_name());
                 System.out.println("Element name: " + element.getCat_name());
                 System.out.println("Element name: " + element.getLib_name());
-            }
-            else{
+            } else {
                 System.out.println("No matching record found");
             }
         }
