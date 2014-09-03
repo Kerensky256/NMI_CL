@@ -3,6 +3,7 @@ package com.nmi.uk.librarycl;
 //import com.sun.xml.internal.ws.developer.ValidationErrorHandler;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.XMLConstants;
@@ -20,7 +21,7 @@ public class XmlParser {
 
     private String filename = null;
     private String libraryName = null;
-    private ArrayList xmlBookList = null;
+    private ArrayList<Book> xmlBookList = null;
 
     public XmlParser() {
 
@@ -44,12 +45,23 @@ public class XmlParser {
             
             System.out.println("Library name:" + lib.getName());
 
-            ArrayList<Book> listOfBooks = lib.getListOfBooks();
+            lib.getListOfBooks();
             libraryName = lib.getName();
-            xmlBookList = listOfBooks;
+            xmlBookList = lib.getListOfBooks();
 
-            for (Book book : listOfBooks) {
-                System.out.println("Book:" + book.getTitle() + "," + book.getAuthor() + "," + book.getCategory());
+            for (Book toAdd : xmlBookList) {
+                
+                
+                // do not add duplicates !!!!!
+                System.out.println("Book:" + toAdd.getTitle() + "," + toAdd.getAuthor() + "," + toAdd.getCategory());
+                
+                LibraryRecord rec = new LibraryRecord();
+                rec.setLib_name(lib.getName());
+                rec.setBook_name(toAdd.getTitle());
+                rec.setAuth_name(toAdd.getAuthor());
+                rec.setCat_name(toAdd.getCategory());
+                LibraryAccess.addRecord(rec);
+                System.out.println("Record has been added");
             }
 
         } catch (javax.xml.bind.UnmarshalException e) {

@@ -66,6 +66,8 @@ public class JsnParser {
             Iterator i = extractedBooks.iterator();
             while (i.hasNext()) {
                 JSONObject innerObj = (JSONObject) i.next();
+                
+                // add to records here
                 System.out.println("title " + innerObj.get("name")
                         + " author " + innerObj.get("author") + " category "
                         + innerObj.get("category"));

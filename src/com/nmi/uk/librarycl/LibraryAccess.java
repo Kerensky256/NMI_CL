@@ -27,7 +27,7 @@ import java.util.Iterator;
  */
 public class LibraryAccess implements Serializable {
 
-    static ArrayList<LibraryRecord> bookShelves = new ArrayList<>();
+    private static ArrayList<LibraryRecord> bookShelves = new ArrayList<>();
 
     public LibraryAccess() {
 
@@ -37,7 +37,7 @@ public class LibraryAccess implements Serializable {
      *
      * @param rec
      */
-    protected void addRecord(LibraryRecord rec) {
+    protected static void addRecord(LibraryRecord rec) {
         bookShelves.add(rec);
     }
 
