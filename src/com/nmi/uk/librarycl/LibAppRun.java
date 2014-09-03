@@ -16,10 +16,6 @@
  */
 package com.nmi.uk.librarycl;
 
-import java.io.Console;
-import java.util.Arrays;
-import java.io.IOException;
-
 /**
  *
  * @author Darren
@@ -29,25 +25,22 @@ public class LibAppRun {
 
     public static void main(String[] args) {
 
-        System.out.println("Loading app..");
-        String option = null;
+        LibraryAccess admin = new LibraryAccess();
+        LibraryRecord rec = new LibraryRecord();
+        rec.setBook_name("Alien");
+        rec.setAuth_name("Darren");
+        rec.setCat_name("Sci-fi");
+        rec.setLib_name("Bangor");
+        admin.addRecord(rec);
+        admin.printResult("Darren");
 
-        XmlParser newxp = new XmlParser("test");
+        System.out.println("Loading app..");
+        //FIXME:  Test the classes remove in final
+        XmlParser newxp = new XmlParser();
         newxp.parseXml();
-        JsonParser newjp = new JsonParser("test");
+        JsnParser newjp = new JsnParser();
         newjp.parseJson();
 
         MainMenu.Run();
-        // Load Files
-        // call the loader method fo the parser classes in a seperate UI
-
-        Console userInput = System.console();
-
-        while ("Q".equals(option)) {
-
-        }
-        // Main Menu Loop
-
     }
-
 }

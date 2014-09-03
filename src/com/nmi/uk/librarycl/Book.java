@@ -6,7 +6,7 @@ package com.nmi.uk.librarycl;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement(namespace = "com.nmi.uk.sw.Library")
+@XmlRootElement 
 public class Book implements Serializable {
 
     private String title;

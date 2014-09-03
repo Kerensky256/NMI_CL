@@ -16,20 +16,19 @@
  */
 package com.nmi.uk.librarycl;
 
-import java.io.Console;
 import java.util.Scanner;
 
 /**
- *
+ * MainMenu class provides simple console UI.
  * @author Darren
  */
 public class MainMenu {
 
     /**
-     * Method to load and manage the menu options.
+     * Load and manage the menu options.
      */
     static void Run() {
-        LibraryAccess admin = new LibraryAccess();
+        
         Scanner in = new Scanner(System.in);
         String option = null;
 
@@ -43,19 +42,12 @@ public class MainMenu {
             switch (option) {
                 case "1": {
                     // run query 1
-                    LibraryRecord rec = new LibraryRecord();
-
-                    rec.setBook_name("Alien");
-                    rec.setAuth_name("Darren");
-                    rec.setCat_name("Sci-fi");
-                    rec.setLib_name("Bangor");
-
-                    admin.addRecord(rec);
+   
                     break;
                 }
                 case "2": {
                     // run query 1
-                    admin.printResult("Darren");
+                    
                     break;
                 }
                 case "exit": {

@@ -24,7 +24,6 @@ import java.util.Iterator;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
@@ -33,40 +32,60 @@ import org.json.simple.parser.ParseException;
  *
  * @author Darren
  */
-public class JsonParser {
+public class JsnParser {
 
-    private final String filename;
-    private JSONArray bookList;
+    private String filename = null;
+    private String libraryName = null;
+    private JSONArray jsonBookList = null;
 
-    public JsonParser(String filename) {
+    public JsnParser() {
+    
+    }
+
+    /**
+     * Constructor to pass in the json filename.
+     *
+     * @param filename
+     */
+    public JsnParser(String filename) {
         this.filename = filename;
     }
 
-    public JSONArray parseJson() {
+    public void parseJson() {
+
         try {
             JSONParser parser = new JSONParser();
             JSONObject jsonObj = (JSONObject) parser.parse(new FileReader("./src/resources/bangor-library.json"));
 
             String name = (String) jsonObj.get("name");
-            JSONArray bookList = (JSONArray) jsonObj.get("books");
+            libraryName = name;
+            
+            JSONArray extractedBooks = (JSONArray) jsonObj.get("books");
 
             System.out.println("Library: " + name);
-            Iterator i = bookList.iterator();
+            Iterator i = extractedBooks.iterator();
             while (i.hasNext()) {
                 JSONObject innerObj = (JSONObject) i.next();
                 System.out.println("title " + innerObj.get("name")
-                        + " author " + innerObj.get("author") + " category " + innerObj.get("category"));
+                        + " author " + innerObj.get("author") + " category "
+                        + innerObj.get("category"));
             }
-            this.bookList = bookList;
+            this.jsonBookList = extractedBooks;
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(JsonParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsnParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(JsonParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsnParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(JsonParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsnParser.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-        return bookList;
+    public String getLibraryName() {
+        return libraryName;
+    }
+
+    public JSONArray getJsonBookList() {
+        return jsonBookList;
     }
 }

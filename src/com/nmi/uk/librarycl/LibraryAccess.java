@@ -37,11 +37,12 @@ public class LibraryAccess implements Serializable {
      *
      * @param rec
      */
-    protected static void addRecord(LibraryRecord rec) {
+    protected void addRecord(LibraryRecord rec) {
         bookShelves.add(rec);
     }
 
-    protected ArrayList<LibraryRecord> getRecords() {
+    protected ArrayList<LibraryRecord> getRecord() {
+        
         return bookShelves;
     }
 
