@@ -25,10 +25,6 @@ public class XmlParser {
     private Boolean duplicate = false;
     private LibraryRecord rec = null;
 
-
-    private int bookA;
-    private int bookB;
-
     public XmlParser() {
 
     }
@@ -39,8 +35,6 @@ public class XmlParser {
 
     public void parseXml() {
         try {
-
-            // FixMe: implement schema validation. 
             JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = sf.newSchema(new File("./src/resources/bethesda-library.xsd"));
@@ -48,16 +42,11 @@ public class XmlParser {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             File XMLfile = new File("./src/resources/bethesda-library.xml");
             Library lib = (Library) jaxbUnmarshaller.unmarshal(XMLfile);
-            System.out.println("Library name:" + lib.getName());
 
-            lib.getListOfBooks();
             libraryName = lib.getName();
             xmlBookList = lib.getListOfBooks();
 
             for (Book toAdd : xmlBookList) {
-
-                // do not add duplicates !!!!!
-                System.out.println("Book:" + toAdd.getTitle() + "," + toAdd.getAuthor() + "," + toAdd.getCategory());
                 this.rec = new LibraryRecord();
                 this.rec.setLib_name(lib.getName());
                 this.rec.setBook_name(toAdd.getTitle());
@@ -66,38 +55,28 @@ public class XmlParser {
 
                 if (!LibraryAccess.bookShelves.isEmpty()) {
                     for (LibraryRecord bookSaved : LibraryAccess.bookShelves) {
-                        bookA = bookSaved.getHashOfContent();
-                        bookB = this.rec.getHashOfContent();
-                    //LibraryAccess.printResult("Neal Stephenson");
 
-                        for (LibraryRecord records : LibraryAccess.bookShelves) {
-                            
-                            if(this.rec.getHashOfContent() != records.getHashOfContent()){
-                                System.out.println("Element name: " + rec.getAuth_name());
-                                System.out.println("Element name: " + rec.getBook_name());
-                                System.out.println("Element name: " + rec.getCat_name());
-                                System.out.println("Element name: " + rec.getLib_name());
-                            }
-                        }
-                        //System.out.println("Book already added");
-                        if (bookA == bookB) {
-                            //System.out.println("Book already added");
+                        if (this.rec.getHashOfContent() != bookSaved.getHashOfContent()) {
+                            duplicate = false;
+                            System.out.println(duplicate);
                         } else {
-                            //System.out.println("NEW book added");
-                            //LibraryAccess.addRecord(rec);
+                            duplicate = true;
+                            System.out.println(duplicate);
                         }
                     }
+                    if (!duplicate) {
+                        LibraryAccess.addRecord(rec);
+                    }
+
                 } else {
-                    System.out.println("Adding first record!!!");
+                    System.out.println("Library empty : Adding first record!!!");
                     LibraryAccess.addRecord(this.rec);
                     System.out.println(this.rec.getHashOfContent());
                 }
-
-                //LibraryAccess.addRecord(rec);
-                //System.out.println("Record has been added");
             }
 
-            //LibraryAccess.printResult("Neal Stephenson");
+            // TO DO: remove when test done !!!!
+            LibraryAccess.printResult("Neal Stephenson");
 
         } catch (javax.xml.bind.UnmarshalException e) {
             System.out.println("The XMl file does not contain all of/the correct elements for import");
