@@ -17,10 +17,26 @@
 
 package com.nmi.uk.librarycl;
 
+import java.util.ArrayList;
+import org.json.simple.JSONArray;
+
 /**
  *
  * @author Darren
  */
 public class CheckDupNodes {
     
+    public CheckDupNodes(){
+        
+    }
+    
+    public static boolean checkJson(JSONArray books){
+        
+        return false; 
+    }
+    
+    public static boolean checkXml(ArrayList<Book> books){
+        
+        return false; 
+    }
 }

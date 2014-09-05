@@ -27,7 +27,7 @@ import java.util.Iterator;
  */
 public class LibraryAccess implements Serializable {
 
-    private static ArrayList<LibraryRecord> bookShelves = new ArrayList<>();
+    public static ArrayList<LibraryRecord> bookShelves = new ArrayList<>();
 
     public LibraryAccess() {
 
@@ -49,20 +49,24 @@ public class LibraryAccess implements Serializable {
     /**
      * Method to print results of a search.
      */
-    public void printResult(String searchFor) {
-        System.out.println("Testing object output");
-        Iterator<LibraryRecord> search = bookShelves.iterator();
-
-        while (search.hasNext()) {
-            LibraryRecord element = search.next();
-            if (element.getAuth_name().equalsIgnoreCase(searchFor)) {
-                System.out.println("Element name: " + element.getAuth_name());
-                System.out.println("Element name: " + element.getBook_name());
-                System.out.println("Element name: " + element.getCat_name());
-                System.out.println("Element name: " + element.getLib_name());
-            } else {
-                System.out.println("No matching record found");
-            }
+    public static void printResult(String searchFor) {
+        System.out.println("Testing object output, " + searchFor);
+        System.out.println("T-szie, " + bookShelves.size());
+        
+        int i =0;
+        for(LibraryRecord rec : bookShelves){
+            
+            System.out.println( i += 1);
+                           
+            //if (rec.getAuth_name().equals(searchFor)) {
+                System.out.println("Element name: " + rec.getAuth_name());
+                System.out.println("Element name: " + rec.getBook_name());
+                System.out.println("Element name: " + rec.getCat_name());
+                System.out.println("Element name: " + rec.getLib_name());
+            //} else {
+            //    System.out.println("No matching record found");
+            //    break;
+            //}
         }
     }
 

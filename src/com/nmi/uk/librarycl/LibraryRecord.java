@@ -26,10 +26,11 @@ import java.io.Serializable;
  */
 public class LibraryRecord implements Serializable {
 
-    static String lib_name;
-    static String book_name;
-    static String auth_name;
-    static String cat_name;
+    String lib_name;
+    String book_name;
+    String auth_name;
+    String cat_name;
+    int hashCode;
 
     public LibraryRecord() {
 
@@ -44,7 +45,7 @@ public class LibraryRecord implements Serializable {
      * @param lib_name
      */
     public void setLib_name(String lib_name) {
-        LibraryRecord.lib_name = lib_name;
+        this.lib_name = lib_name;
     }
 
     public String getBook_name() {
@@ -56,7 +57,7 @@ public class LibraryRecord implements Serializable {
      * @param book_name
      */
     public void setBook_name(String book_name) {
-        LibraryRecord.book_name = book_name;
+        this.book_name = book_name;
     }
 
     public String getAuth_name() {
@@ -68,7 +69,7 @@ public class LibraryRecord implements Serializable {
      * @param auth_name
      */
     public void setAuth_name(String auth_name) {
-        LibraryRecord.auth_name = auth_name;
+        this.auth_name = auth_name;
     }
 
     public String getCat_name() {
@@ -80,6 +81,12 @@ public class LibraryRecord implements Serializable {
      * @param cat_name
      */
     public void setCat_name(String cat_name) {
-        LibraryRecord.cat_name = cat_name;
+        this.cat_name = cat_name;
+    }
+    
+    public int getHashOfContent(){
+        int hashCode = (cat_name+lib_name+auth_name+book_name).hashCode();
+        this.hashCode = hashCode;
+        return this.hashCode;
     }
 }

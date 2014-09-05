@@ -25,15 +25,6 @@ public class LibAppRun {
 
     public static void main(String[] args) {
 
-        LibraryAccess admin = new LibraryAccess();
-        LibraryRecord rec = new LibraryRecord();
-        rec.setBook_name("Alien");
-        rec.setAuth_name("Darren");
-        rec.setCat_name("Sci-fi");
-        rec.setLib_name("Bangor");
-        admin.addRecord(rec);
-        admin.printResult("Darren");
-
         System.out.println("Loading app..");
         //FIXME:  Test the classes remove in final
         XmlParser newxp = new XmlParser();

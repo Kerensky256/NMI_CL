@@ -21,6 +21,6 @@ package com.nmi.uk.librarycl;
  *
  * @author Darren
  */
-public class SearchArray {
+public class LibraryQuery {
     
 }
