@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/resources/bangor-library.json" uri="xml-resources/jaxb/jsonBind/bangor-library.json"/>
+</catalog>

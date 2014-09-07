@@ -1,4 +1,6 @@
-/*
+/**
+ * @(#)JsnParser.java
+ * 
  * Copyright (C) 2014 Darren
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.nmi.uk.librarycl;
 
 import java.io.FileNotFoundException;
@@ -29,50 +32,70 @@ import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 
 /**
- *
- * @author Darren
+ * A class to parse JSON documents into LibraryRecord.java beans.
+ * Required the simple json library `json-simple-1.1.1.jar`.
+ * @author Darren Roberts
  */
 public class JsnParser {
 
     private String filename = null;
     private String libraryName = null;
     private JSONArray jsonBookList = null;
+    private LibraryRecord rec;
+    private boolean duplicate;
 
     public JsnParser() {
-    
+
     }
 
     /**
-     * Constructor to pass in the json filename.
-     *
-     * @param filename
+     * Constructor to pass in the JSON filename, not yet implemented, filename hard coded.
+     * @param filename the .json file to be parsed. 
      */
     public JsnParser(String filename) {
         this.filename = filename;
     }
 
+    /**
+     * Method to construct the json object and json array form the source file.
+     * The extracted elements are stored to `LibraryRecord.java` objects.<br> 
+     * Duplicate `LibraryRecord` removed before adding to the array using hash of content.
+     */
     public void parseJson() {
 
         try {
             JSONParser parser = new JSONParser();
             JSONObject jsonObj = (JSONObject) parser.parse(new FileReader("./src/resources/bangor-library.json"));
-
             String name = (String) jsonObj.get("name");
             libraryName = name;
-            
             JSONArray extractedBooks = (JSONArray) jsonObj.get("books");
 
-            System.out.println("Library: " + name);
             Iterator i = extractedBooks.iterator();
             while (i.hasNext()) {
+                rec = new LibraryRecord();
+                rec.setLib_name(libraryName);
                 JSONObject innerObj = (JSONObject) i.next();
-                
-                // add to records here
-                System.out.println("title " + innerObj.get("name")
-                        + " author " + innerObj.get("author") + " category "
-                        + innerObj.get("category"));
+                rec.setBook_name(innerObj.get("name").toString());
+                rec.setAuth_name(innerObj.get("author").toString());
+                rec.setCat_name(innerObj.get("category").toString());
+
+                if (!LibraryAccess.bookShelves.isEmpty()) {
+                    for (LibraryRecord bookSaved : LibraryAccess.bookShelves) {
+                        if (this.rec.getHashOfContent() == bookSaved.getHashOfContent()) {
+                            duplicate = true;
+                            rec = null;
+                        }
+                    }
+                    if (!duplicate) {
+                        LibraryAccess.addRecord(rec);
+                    }
+                    duplicate = false;
+
+                } else {
+                    System.out.println("Library empty : Adding records...");
+                    LibraryAccess.addRecord(this.rec);
+                }
             }
-            this.jsonBookList = extractedBooks;
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JsnParser.class.getName()).log(Level.SEVERE, null, ex);

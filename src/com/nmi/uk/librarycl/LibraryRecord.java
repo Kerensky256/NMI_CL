@@ -1,4 +1,6 @@
-/*
+/**
+ * @(#)LibraryRecord.java
+ * 
  * Copyright (C) 2014 Darren
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,22 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.nmi.uk.librarycl;
 
 import java.io.Serializable;
 
 /**
- * LibraryRecord is as Simple Data object to store details on one book.
- *
- * @author Darren
- *
+ * LibraryRecord is as Simple Data object to store full details of one book.
+ * @author Darren Roberts
  */
 public class LibraryRecord implements Serializable {
 
-    String lib_name;
-    String book_name;
-    String auth_name;
-    String cat_name;
+    private String lib_name;
+    private String book_name;
+    private String auth_name;
+    private String cat_name;
     int hashCode;
 
     public LibraryRecord() {
@@ -41,7 +42,7 @@ public class LibraryRecord implements Serializable {
     }
 
     /**
-     *
+     * Set the library name for this books location.
      * @param lib_name
      */
     public void setLib_name(String lib_name) {
@@ -53,8 +54,8 @@ public class LibraryRecord implements Serializable {
     }
 
     /**
-     *
-     * @param book_name
+     * Set the book name/title for this book.
+     * @param book_name 
      */
     public void setBook_name(String book_name) {
         this.book_name = book_name;
@@ -65,7 +66,7 @@ public class LibraryRecord implements Serializable {
     }
 
     /**
-     *
+     * Set the authors name for this book.
      * @param auth_name
      */
     public void setAuth_name(String auth_name) {
@@ -77,16 +78,19 @@ public class LibraryRecord implements Serializable {
     }
 
     /**
-     *
+     * Set the category for this book.
      * @param cat_name
      */
     public void setCat_name(String cat_name) {
         this.cat_name = cat_name;
     }
     
+    /**
+     * A method to return the hash of the data, used to avoid adding duplicate records into the LibraryAccess class.
+     * @return and integer hash value of all details held on the book.
+     */
     public int getHashOfContent(){
-        int hashCode = (cat_name+lib_name+auth_name+book_name).hashCode();
-        this.hashCode = hashCode;
+        this.hashCode = (cat_name+lib_name+auth_name+book_name).hashCode();
         return this.hashCode;
     }
 }

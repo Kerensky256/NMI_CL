@@ -3,16 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/resources/bethesda-library.xml</file>
-            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/LibraryRecord.java</file>
+            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/AppRun.java</file>
+            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/LibraryQuery.java</file>
+            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/test/com/nmi/uk/librarycl/XmlParserIT.java</file>
             <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/JsnParser.java</file>
             <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/XmlParser.java</file>
             <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/Library.java</file>
             <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/LibraryAccess.java</file>
             <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/MainMenu.java</file>
-            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/CheckDupNodes.java</file>
             <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/Book.java</file>
-            <file>file:/C:/Users/Darren/Documents/NetBeansProjects/LibrareyCl/src/com/nmi/uk/librarycl/LibAppRun.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,4 +1,6 @@
-/*
+/**
+ * @(#)LibraryQuery.java
+ * 
  * Copyright (C) 2014 Darren
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,9 +20,67 @@
 package com.nmi.uk.librarycl;
 
 /**
- *
- * @author Darren
+ * Class providing a simple method for carrying out queries on the Library.
+ * @author Darren Roberts
  */
 public class LibraryQuery {
-    
+
+    /**
+     * Return and display all records in the Library
+     */
+    public static void getAll() {
+
+        System.out.println("ALL Book Results: ");
+        System.out.println();
+
+        for (LibraryRecord rec : LibraryAccess.bookShelves) {
+            System.out.println("Book location: " + rec.getLib_name());
+            System.out.println("Title: " + rec.getBook_name());
+            System.out.println("Author: " + rec.getAuth_name());
+            System.out.println("Category: " + rec.getCat_name());
+            System.out.println();
+        }  
+        System.out.println("End of Results\n");
+    }
+
+    /**
+     * Return and display all records in the Library by library name.
+     * @param option the name of the library to search, passed in from menu.
+     */
+    public static void getByLibName(String option) {
+
+        System.out.println("Book Results for: " + option);
+        System.out.println();
+
+        for (LibraryRecord rec : LibraryAccess.bookShelves) {
+            if (rec.getLib_name().equalsIgnoreCase(option)) {
+                System.out.println("Title: " + rec.getBook_name());
+                System.out.println("Author: " + rec.getAuth_name());
+                System.out.println("Category: " + rec.getCat_name());
+                System.out.println();
+            }
+        } 
+        System.out.println("End of Results\n");
+    }
+
+    /**
+     * Return and display all records by authors name.
+     * @param option the name of the author to search for, passed in from menu.
+     */
+    static void getByAuthName(String option) {
+
+        System.out.println("Book Results for: " + option);
+        System.out.println();
+        
+        for (LibraryRecord rec : LibraryAccess.bookShelves) {
+            if (rec.getAuth_name().equalsIgnoreCase(option)) {
+                System.out.println("Title: " + rec.getBook_name());
+                System.out.println("Author: " + rec.getAuth_name());
+                System.out.println("Book Location: " + rec.getLib_name());
+                System.out.println();
+            }
+        }
+        
+        System.out.println("End of Results\n");
+    }
 }

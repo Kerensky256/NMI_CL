@@ -1,9 +1,26 @@
+/**
+ * @(#)XmlParser.java
+ * 
+ * Copyright (C) 2014 Darren
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.nmi.uk.librarycl;
 
-//import com.sun.xml.internal.ws.developer.ValidationErrorHandler;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.XMLConstants;
@@ -15,6 +32,7 @@ import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 
 /**
+ * A class to parse XML documents into LibraryRecord.java beans.
  * Created by Darren on 25/08/2014.
  */
 public class XmlParser {
@@ -29,16 +47,27 @@ public class XmlParser {
 
     }
 
+    /**
+     * XML Parser constructor specify file to be read in. 
+     * @param filename the XML file to be parsed, must be of type library schema.
+     */
     public XmlParser(String filename) {
         this.filename = filename;
     }
 
+    /**
+     * Method to extract books using xml binding to `LibraryBind.java and `BookBind.java` beans.
+     * The extracted elements are stored to `LibraryRecord.java` objects.<br> 
+     * Duplicate `LibraryRecord` removed before adding to the array using hash of content.<br>
+     * NOTE: SchemaFacotry schema validation not fully implemented. Exception to catch incorrect format of XML at the moment.
+     */
+     
     public void parseXml() {
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
+        try { 
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = sf.newSchema(new File("./src/resources/bethesda-library.xsd"));
-
+            
+            JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             File XMLfile = new File("./src/resources/bethesda-library.xml");
             Library lib = (Library) jaxbUnmarshaller.unmarshal(XMLfile);
@@ -47,42 +76,37 @@ public class XmlParser {
             xmlBookList = lib.getListOfBooks();
 
             for (Book toAdd : xmlBookList) {
-                this.rec = new LibraryRecord();
-                this.rec.setLib_name(lib.getName());
-                this.rec.setBook_name(toAdd.getTitle());
-                this.rec.setAuth_name(toAdd.getAuthor());
-                this.rec.setCat_name(toAdd.getCategory());
+                rec = new LibraryRecord();
+                rec.setLib_name(lib.getName());
+                rec.setBook_name(toAdd.getTitle());
+                rec.setAuth_name(toAdd.getAuthor());
+                rec.setCat_name(toAdd.getCategory());
 
                 if (!LibraryAccess.bookShelves.isEmpty()) {
                     for (LibraryRecord bookSaved : LibraryAccess.bookShelves) {
 
-                        if (this.rec.getHashOfContent() != bookSaved.getHashOfContent()) {
-                            duplicate = false;
-                            System.out.println(duplicate);
-                        } else {
+                        if (this.rec.getHashOfContent() == bookSaved.getHashOfContent()) {
                             duplicate = true;
-                            System.out.println(duplicate);
+                            rec = null;
                         }
                     }
+                    
                     if (!duplicate) {
                         LibraryAccess.addRecord(rec);
-                    }
+                        
+                    }          
+                    duplicate = false;
 
                 } else {
-                    System.out.println("Library empty : Adding first record!!!");
+                    System.out.println("Library empty : Adding records...");
                     LibraryAccess.addRecord(this.rec);
-                    System.out.println(this.rec.getHashOfContent());
                 }
             }
 
-            // TO DO: remove when test done !!!!
-            LibraryAccess.printResult("Neal Stephenson");
 
         } catch (javax.xml.bind.UnmarshalException e) {
             System.out.println("The XMl file does not contain all of/the correct elements for import");
-        } catch (JAXBException ex) {
-            Logger.getLogger(XmlParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
+        } catch (JAXBException | SAXException ex) {
             Logger.getLogger(XmlParser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
