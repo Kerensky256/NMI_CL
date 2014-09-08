@@ -20,16 +20,13 @@
 package com.nmi.uk.librarycl;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import org.xml.sax.SAXException;
 
 /**
  * A class to parse XML documents into LibraryRecord.java beans.
@@ -64,13 +61,14 @@ public class XmlParser {
      
     public void parseXml() {
         try { 
-            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = sf.newSchema(new File("./src/resources/bethesda-library.xsd"));
+            //SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            //Schema schema = sf.newSchema(new File("./src/resources/bethesda-library.xsd"));
             
             JAXBContext jaxbContext = JAXBContext.newInstance(Library.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            File XMLfile = new File("./src/resources/bethesda-library.xml");
-            Library lib = (Library) jaxbUnmarshaller.unmarshal(XMLfile);
+            
+            InputStream is = this.getClass().getResourceAsStream("/resources/bethesda-library.xml");
+            Library lib = (Library) jaxbUnmarshaller.unmarshal(is);
 
             libraryName = lib.getName();
             xmlBookList = lib.getListOfBooks();
@@ -106,7 +104,7 @@ public class XmlParser {
 
         } catch (javax.xml.bind.UnmarshalException e) {
             System.out.println("The XMl file does not contain all of/the correct elements for import");
-        } catch (JAXBException | SAXException ex) {
+        } catch (JAXBException ex) {
             Logger.getLogger(XmlParser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

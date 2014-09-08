@@ -19,6 +19,7 @@
 
 package com.nmi.uk.librarycl;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
@@ -27,6 +28,7 @@ import java.util.Iterator;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
@@ -43,6 +45,7 @@ public class JsnParser {
     private JSONArray jsonBookList = null;
     private LibraryRecord rec;
     private boolean duplicate;
+    private BufferedReader jsonReader = null;
 
     public JsnParser() {
 
@@ -65,7 +68,9 @@ public class JsnParser {
 
         try {
             JSONParser parser = new JSONParser();
-            JSONObject jsonObj = (JSONObject) parser.parse(new FileReader("./src/resources/bangor-library.json"));
+            jsonReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/resources/bangor-library.json")));
+            JSONObject jsonObj = (JSONObject) parser.parse(jsonReader);
+            
             String name = (String) jsonObj.get("name");
             libraryName = name;
             JSONArray extractedBooks = (JSONArray) jsonObj.get("books");

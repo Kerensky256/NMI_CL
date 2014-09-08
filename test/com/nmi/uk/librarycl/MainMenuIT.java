@@ -45,7 +45,7 @@ public class MainMenuIT {
     @Test
     public void testRun() {
         System.out.println("Run");
-        MainMenu.Run();
+        new MainMenu().Run();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

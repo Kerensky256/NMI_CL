@@ -26,8 +26,12 @@ import java.util.Scanner;
  * @author Darren Roberts
  */
 public class MainMenu {
+    
+    public MainMenu(){
+        this.Run();
+    }
 
-    static void Run() {
+    void Run() {
 
         Scanner in = new Scanner(System.in);
         in.useDelimiter("\n");
@@ -40,7 +44,7 @@ public class MainMenu {
             System.out.println("Enter option 3 to return all books by author name");
             System.out.println("Type 'exit' to quit");
             System.out.print("Enter your selection: ");
-            option = in.next().toLowerCase();
+            option = in.nextLine().toLowerCase();
 
             switch (option) {
                 case "1": {
@@ -51,7 +55,7 @@ public class MainMenu {
                     // Get all books by library
                     System.out.println("Enter a library name, it is not case sensitive");
                     System.out.print("Enter library name: ");
-                    String select = in.next().toLowerCase();
+                    String select = in.nextLine().toLowerCase();
                     LibraryQuery.getByLibName(select);
                     break;
                 }
@@ -59,8 +63,7 @@ public class MainMenu {
                     // Get all books by authors
                     System.out.println("Enter the authors full name (e.g. Darren Roberts)this is not case sensitive:");
                     System.out.print("Enter Name: ");             
-                    String first = in.next();
-                    String select = first;
+                    String select = in.nextLine().toLowerCase();
                     System.out.println();
                     LibraryQuery.getByAuthName(select);
                     break;

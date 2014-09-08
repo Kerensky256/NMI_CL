@@ -34,7 +34,8 @@ public class AppRun {
         loadJSON();
         loadXML();
         System.out.println("Loading Menu...");
-        MainMenu.Run();
+        MainMenu menu = new MainMenu();
+        menu.Run();
     }
 
     /**

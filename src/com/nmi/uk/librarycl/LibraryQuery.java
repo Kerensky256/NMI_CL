@@ -30,7 +30,7 @@ public class LibraryQuery {
      */
     public static void getAll() {
 
-        System.out.println("ALL Book Results: ");
+        System.out.println("\nALL Book Results: ");
         System.out.println();
 
         for (LibraryRecord rec : LibraryAccess.bookShelves) {
@@ -49,7 +49,7 @@ public class LibraryQuery {
      */
     public static void getByLibName(String option) {
 
-        System.out.println("Book Results for: " + option);
+        System.out.println("\nBook Results for: " + option);
         System.out.println();
 
         for (LibraryRecord rec : LibraryAccess.bookShelves) {
@@ -69,7 +69,7 @@ public class LibraryQuery {
      */
     static void getByAuthName(String option) {
 
-        System.out.println("Book Results for: " + option);
+        System.out.println("\nBook Results for: " + option);
         System.out.println();
         
         for (LibraryRecord rec : LibraryAccess.bookShelves) {
